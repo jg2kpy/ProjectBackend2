@@ -39,3 +39,36 @@ export const Cliente = sequelize.define("Cliente", {
         unique: true
     },
 });
+
+export const Mesa = sequelize.define("Mesa", {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    nombre: {
+        type: Sequelize.STRING
+    },
+    id_restaurante: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'Restaurantes', 
+            key: 'id', 
+        }
+    },
+    posicion_x: {
+        type: Sequelize.INTEGER
+    },
+    posicion_y: {
+        type: Sequelize.INTEGER
+    },
+    nro_piso: {
+        type: Sequelize.INTEGER
+    },
+    capacidad_comensales: {
+        type: Sequelize.INTEGER
+    },
+});
+
+Restaurante.hasMany(Mesa);
+
