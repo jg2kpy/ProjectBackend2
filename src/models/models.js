@@ -70,5 +70,43 @@ export const Mesa = sequelize.define("Mesa", {
     },
 });
 
+export const Reserva = sequelize.define("Reserva", {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    id_restaurante: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'Restaurantes', 
+            key: 'id', 
+        }
+    },
+    id_mesa: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'Mesas', 
+            key: 'id', 
+        }
+    },
+    fecha: {
+        type: Sequelize.DATE
+    },
+    rango_hora: {
+        type: Sequelize.STRING
+    },
+    id_cliente: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'Clientes', 
+            key: 'id', 
+        }
+    },
+    cantidad: {
+        type: Sequelize.INTEGER
+    },
+});
+
 Restaurante.hasMany(Mesa);
 
