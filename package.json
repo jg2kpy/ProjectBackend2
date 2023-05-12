@@ -7,7 +7,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --watch index.js",
-    "prod": "node index.js"
+    "prod": "node index.js",
+    "front": "serve -l 80 ./frontend/index.html",
+    "fulldev": "start npm run dev && start npm run front",
+    "fullprod": "start npm run prod && start npm run front"
   },
   "keywords": [
     "node",
@@ -23,6 +26,7 @@
   "dependencies": {
     "express": "^4.18.2",
     "sequelize": "^6.31.0",
+    "serve": "^14.2.0",
     "sqlite3": "^5.1.6"
   }
 }
