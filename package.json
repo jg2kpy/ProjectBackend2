@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --watch index.js",
     "prod": "node index.js",
-    "front": "serve -l 80 ./frontend/index.html",
+    "front": "serve -l 80 ./frontent/",
     "fulldev": "start npm run dev && start npm run front",
     "fullprod": "start npm run prod && start npm run front"
   },
