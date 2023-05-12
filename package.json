@@ -9,8 +9,8 @@
     "dev": "node --watch index.js",
     "prod": "node index.js",
     "front": "serve -S -l 80 ./frontend/",
-    "fulldev": "start npm run dev && start npm run front",
-    "fullprod": "start npm run prod && start npm run front"
+    "fulldev": "start npm run dev && npm run front",
+    "fullprod": "start npm run prod && npm run front"
   },
   "keywords": [
     "node",
