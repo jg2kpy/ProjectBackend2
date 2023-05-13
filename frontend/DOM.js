@@ -74,7 +74,7 @@ export default class DOM {
             const td = document.createElement("td")
             const value = elemento[key]
 
-            if (isNaN(Date.parse(value))) {
+            if (isNaN(Date.parse(value)) || key === "id") {
                 td.textContent = value
             } else {
                 td.textContent = new Date(value).toLocaleDateString();
