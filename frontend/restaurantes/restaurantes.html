@@ -1,74 +1,67 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>CRUD de Restaurantes</title>
     <!-- <link rel="stylesheet" href="cliente.css"> -->
 </head>
+
 <body>
-<div class="container">
-    <a class="menu-btn" href="../index.html">Menu</a>
-    <br>
+    <div class="container">
+        <a class="menu-btn" href="../index.html">Menu</a>
+        <br>
 
-    <h1>CRUD de Restaurantes</h1>
+        <h1>CRUD de Restaurantes</h1>
 
-    <h2>Agregar Restaurante</h2>
-    <form>
-        <div>
-            <label for="nombre">Nombre:</label>
-            <input id="nombre" required type="text">
-        </div>
-        <div>
-            <label for="direccion">Direccion:</label>
-            <input id="direccion" required type="text">
-        </div>
-
-        <button type="submit">Agregar</button>
-    </form>
-
-    <h2>Restaurantes</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Direccion</th>
-            <th>Acciones</th>
-        </tr>
-        </thead>
-        <tbody id="tabla-body">
-        <!-- Los registros se agregarán aquí mediante JavaScript -->
-        </tbody>
-    </table>
-
-    <div id="editar-formulario" style="display: none;">
-        <h2>Editar Restaurante</h2>
+        <h2>Agregar Restaurante</h2>
         <form>
             <div>
-                <label for="editar-id">Id:</label>
-                <input id="editar-id" readonly required type="text">
+                <label for="nombre">Nombre:</label>
+                <input id="nombre" required type="text">
             </div>
             <div>
-                <label for="editar-nombre">Nombre:</label>
-                <input id="editar-nombre" required type="text">
+                <label for="direccion">Direccion:</label>
+                <input id="direccion" required type="text">
             </div>
-            <div>
-                <label for="editar-direccion">Direccion:</label>
-                <input id="editar-direccion" required type="text">
-            </div>
-            <button type="submit">Aplicar</button>
-        </form>
-    </div>
 
-    <!-- Formulario para eliminar un cliente -->
-    <div id="eliminar-formulario" style="display: none;">
-        <h2>Eliminar</h2>
-        <form>
-            <p>¿Está seguro que desea eliminar?</p>
-            <button type="submit">Eliminar</button>
+            <button type="submit">Agregar</button>
         </form>
-    </div>
 
-    <script src="restaurantes.js" type="module"></script>
+        <h2>Restaurantes</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Direccion</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-body">
+                <!-- Los registros se agregarán aquí mediante JavaScript -->
+            </tbody>
+        </table>
+
+        <div id="editar-formulario" style="display: none;">
+            <h2>Editar Restaurante</h2>
+            <form>
+                <div>
+                    <label for="id">Id:</label>
+                    <input id="id" readonly required type="text">
+                </div>
+                <div>
+                    <label for="nombre">Nombre:</label>
+                    <input id="nombre" required type="text">
+                </div>
+                <div>
+                    <label for="direccion">Direccion:</label>
+                    <input id="direccion" required type="text">
+                </div>
+                <button type="submit">Aplicar</button>
+            </form>
+        </div>
+
+        <script src="restaurantes.js" type="module"></script>
 
 </body>
