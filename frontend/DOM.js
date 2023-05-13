@@ -2,12 +2,12 @@ import API from "./API.js";
 
 export default class DOM {
 
-    constructor(formulario, tablaBody, editarFormulario, editarForm, API_URL, funcComp) {
+    constructor(agregarForm, tablaBody, divEditarForm, editarForm, API_URL, funcComp) {
 
         this.tablaBody = tablaBody;
 
-        this.formulario = formulario;
-        this.editarFormulario = editarFormulario;
+        this.agregarForm = agregarForm;
+        this.divEditarForm = divEditarForm;
         this.editarForm = editarForm;
 
         this.funcComp = funcComp;
@@ -19,19 +19,19 @@ export default class DOM {
 
     agregarEventerListeners() {
 
-        this.formulario.addEventListener("submit", async (event) => {
+        this.agregarForm.addEventListener("submit", async (event) => {
             event.preventDefault();
 
             let DTO = {};
 
-            let fields = Array.from(this.formulario.querySelectorAll("input"));
+            let fields = Array.from(this.agregarForm.querySelectorAll("input"));
             fields.forEach((field) => {
                 DTO[field.id] = field.value;
             })
 
             const resultado = await this.api.agregarElemento(DTO);
             if (resultado) {
-                this.formulario.reset();
+                this.agregarForm.reset();
                 this.refrescarTabla();
             }
         })
@@ -101,7 +101,7 @@ export default class DOM {
 
     mostrarEditarFormulario(elemento) {
         // habilito el display del form
-        this.editarFormulario.style.display = "block";
+        this.divEditarForm.style.display = "block";
 
         Object.keys(elemento).forEach((key) => {
             const field = this.editarForm.elements[key];
@@ -112,7 +112,7 @@ export default class DOM {
 
     ocultarEditarFormulario() {
         this.editarForm.reset();
-        this.editarFormulario.style.display = "none";
+        this.divEditarForm.style.display = "none";
     }
 
     async eliminarElementoClick(elemento) {
