@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD de Mesas</title>
+    <!-- <link rel="stylesheet" href="cliente.css"> -->
+</head>
+
+<body>
+    <div class="container">
+        <a class="menu-btn" href="../index.html">Menu</a>
+        <br>
+
+        <h1>CRUD de Mesas</h1>
+
+        <h2>Agregar Mesa</h2>
+        <form>
+            <div>
+                <label for="nombre">Nombre:</label>
+                <input id="nombre" required type="text">
+            </div>
+            <div>
+                <label for="id_restaurante">ID del Restaurante:</label>
+                <input id="id_restaurante" required type="number">
+            </div>
+            <div>
+                <label for="posicion_x">posicion x:</label>
+                <input id="posicion_x" required type="number">
+            </div>
+            <div>
+                <label for="posicion_y">posicion y:</label>
+                <input id="posicion_y" required type="number">
+            </div>
+            <div>
+                <label for="nro_piso">Numero de piso:</label>
+                <input id="nro_piso" required type="number">
+            </div>
+            <div>
+                <label for="capacidad_comensales">Capacidad de Comensales:</label>
+                <input id="capacidad_comensales" required type="number">
+            </div>
+
+            <button type="submit">Agregar</button>
+        </form>
+
+        <h2>Mesas</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Id Restaurante</th>
+                    <th>pos x</th>
+                    <th>pos y</th>
+                    <th>Nro piso</th>
+                    <th>Capacidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-body">
+                <!-- Los registros se agregarán aquí mediante JavaScript -->
+            </tbody>
+        </table>
+
+        <div id="editar-formulario" style="display: none;">
+            <h2>Editar Mesa</h2>
+            <form>
+                <div>
+                    <label for="id">Id:</label>
+                    <input id="id" readonly required type="text">
+                </div>
+                <div>
+                    <label for="nombre">Nombre:</label>
+                    <input id="nombre" required type="text">
+                </div>
+                <div>
+                    <label for="id_restaurante">ID del Restaurante:</label>
+                    <input id="id_restaurante" required type="number">
+                </div>
+                <div>
+                    <label for="posicion_x">posicion x:</label>
+                    <input id="posicion_x" required type="number">
+                </div>
+                <div>
+                    <label for="posicion_y">posicion y:</label>
+                    <input id="posicion_y" required type="number">
+                </div>
+                <div>
+                    <label for="nro_piso">Numero de piso:</label>
+                    <input id="nro_piso" required type="number">
+                </div>
+                <div>
+                    <label for="capacidad_comensales">Capacidad de Comensales:</label>
+                    <input id="capacidad_comensales" required type="number">
+                </div>
+                <button type="submit">Aplicar</button>
+            </form>
+        </div>
+
+        <script src="mesas.js" type="module"></script>
+
+</body>
