@@ -26,7 +26,7 @@ export default class API {
                 body: JSON.stringify(elemento)
             });
             const data = await response.json();
-            return data;
+            return response.status === 200;
         } catch (error) {
             console.error(error);
         }
@@ -38,10 +38,7 @@ export default class API {
             const response = await fetch(`${this.API_URL}/${id}`, {
                 method: "DELETE"
             });
-            //como nuestro servidor no retorna nada al actualizar, retorno true
-            //const data = await response.json();
-            //return data;
-            return true;
+            return response.status === 200;
         } catch (error) {
             console.error(error);
         }
@@ -57,10 +54,7 @@ export default class API {
                 },
                 body: JSON.stringify(elementoDTO)
             });
-            //como nuestro servidor no retorna nada al actualizar, retorno true
-            //const data = await response.json();
-            //return data;
-            return true;
+            return response.status === 200;
         } catch (error) {
             console.error(error);
         }

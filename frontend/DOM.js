@@ -33,6 +33,8 @@ export default class DOM {
             if (resultado) {
                 this.agregarForm.reset();
                 this.refrescarTabla();
+            }else{
+                alert("No se pudo agregar el elemento");
             }
         })
 
@@ -50,6 +52,8 @@ export default class DOM {
             if (resultado) {
                 this.ocultarEditarFormulario();
                 this.refrescarTabla();
+            }else{
+                alert("No se pudo editar el elemento");
             }
         })
     }
@@ -116,7 +120,10 @@ export default class DOM {
     async eliminarElementoClick(elemento) {
         const confirmacion = confirm(`¿Desea eliminar el elemento ${elemento.id}?`);
         if (confirmacion) {
-            await this.api.eliminarElemento(elemento.id);
+            const respuesta = await this.api.eliminarElemento(elemento.id);
+            if (!respuesta) {
+                alert("No se pudo eliminar el elemento");
+            }
             this.refrescarTabla();
         }
     }
