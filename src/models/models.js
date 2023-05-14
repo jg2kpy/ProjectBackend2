@@ -20,7 +20,7 @@ export const Restaurante = sequelize.define("Restaurante", {
     direccion: {
         type: Sequelize.STRING
     },
-},{ timestamps: false });
+}, { timestamps: false });
 
 export const Cliente = sequelize.define("Cliente", {
     id: {
@@ -38,7 +38,7 @@ export const Cliente = sequelize.define("Cliente", {
         type: Sequelize.INTEGER,
         unique: true
     },
-},{ timestamps: false });
+}, { timestamps: false });
 
 export const Mesa = sequelize.define("Mesa", {
     id: {
@@ -48,13 +48,6 @@ export const Mesa = sequelize.define("Mesa", {
     },
     nombre: {
         type: Sequelize.STRING
-    },
-    id_restaurante: {
-        type: Sequelize.INTEGER,
-        references: {
-            model: 'Restaurantes', 
-            key: 'id', 
-        }
     },
     posicion_x: {
         type: Sequelize.INTEGER
@@ -68,8 +61,14 @@ export const Mesa = sequelize.define("Mesa", {
     capacidad_comensales: {
         type: Sequelize.INTEGER
     },
-    
-},{ timestamps: false });
+
+}, { timestamps: false });
+
+Restaurante.hasMany(Mesa, {
+    foreignKey: {
+        name: 'id_restaurante',
+    }
+});
 
 export const Reserva = sequelize.define("Reserva", {
     id: {
@@ -80,15 +79,15 @@ export const Reserva = sequelize.define("Reserva", {
     id_restaurante: {
         type: Sequelize.INTEGER,
         references: {
-            model: 'Restaurantes', 
-            key: 'id', 
+            model: 'Restaurantes',
+            key: 'id',
         }
     },
     id_mesa: {
         type: Sequelize.INTEGER,
         references: {
-            model: 'Mesas', 
-            key: 'id', 
+            model: 'Mesas',
+            key: 'id',
         }
     },
     fecha: {
@@ -100,14 +99,11 @@ export const Reserva = sequelize.define("Reserva", {
     id_cliente: {
         type: Sequelize.INTEGER,
         references: {
-            model: 'Clientes', 
-            key: 'id', 
+            model: 'Clientes',
+            key: 'id',
         }
     },
     cantidad: {
         type: Sequelize.INTEGER
     },
-},{ timestamps: false });
-
-Restaurante.hasMany(Mesa);
-
+}, { timestamps: false });
