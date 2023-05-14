@@ -20,7 +20,7 @@ export const Restaurante = sequelize.define("Restaurante", {
     direccion: {
         type: Sequelize.STRING
     },
-}, { timestamps: false });
+});
 
 export const Cliente = sequelize.define("Cliente", {
     id: {
@@ -38,7 +38,7 @@ export const Cliente = sequelize.define("Cliente", {
         type: Sequelize.INTEGER,
         unique: true
     },
-}, { timestamps: false });
+});
 
 export const Mesa = sequelize.define("Mesa", {
     id: {
@@ -62,7 +62,7 @@ export const Mesa = sequelize.define("Mesa", {
         type: Sequelize.INTEGER
     },
 
-}, { timestamps: false });
+});
 
 Restaurante.hasMany(Mesa, {
     foreignKey: {
@@ -106,4 +106,4 @@ export const Reserva = sequelize.define("Reserva", {
     cantidad: {
         type: Sequelize.INTEGER
     },
-}, { timestamps: false });
+});

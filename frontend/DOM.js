@@ -74,11 +74,7 @@ export default class DOM {
             const td = document.createElement("td")
             const value = elemento[key]
 
-            if ( key != "fecha" ) {
-                td.textContent = value
-            } else {
-                td.textContent = new Date(value).toLocaleDateString();
-            }
+            td.textContent = value
 
             fila.appendChild(td)
         })
@@ -105,7 +101,9 @@ export default class DOM {
 
         Object.keys(elemento).forEach((key) => {
             const field = this.editarForm.elements[key];
-            field.value = elemento[key];
+            if (field !== undefined) {
+                field.value = elemento[key];    
+            }
         })
 
     }
