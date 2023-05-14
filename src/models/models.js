@@ -56,7 +56,8 @@ export const Mesa = sequelize.define("Mesa", {
         type: Sequelize.INTEGER
     },
     nro_piso: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        defaultValue: 1
     },
     capacidad_comensales: {
         type: Sequelize.INTEGER
