@@ -5,7 +5,8 @@ export const getReservas = async (req, res) => {
         const reservas = await Reserva.findAll();
         res.json(reservas);
     } catch (error) {
-        res.status(500).json({ error: "Error interno en el servidor" });
+        console.error(error);
+        res.status(500).json({ message: "Error interno en el servidor" });
     }
 }
 
@@ -29,7 +30,8 @@ export const postReservas = async (req, res) => {
         });
         res.json(reserva);
     } catch (error) {
-        res.status(500).json({ error: "Error interno en el servidor" });
+        console.error(error);
+        res.status(500).json({ message: "Error interno en el servidor" });
     }
 }
 
@@ -56,12 +58,13 @@ export const putReservas = async (req, res) => {
                 where: { id },
             });
         if (resultado[0] === 0) {
-            res.status(404).json({ error: "Reserva no encontrada" });
+            res.status(404).json({ message: "Reserva no encontrada" });
         } else {
             res.json(resultado[1]);
         }
     } catch (error) {
-        res.status(500).json({ error: "Error interno en el servidor" });
+        console.error(error);
+        res.status(500).json({ message: "Error interno en el servidor" });
     }
 }
 
@@ -69,14 +72,15 @@ export const putReservas = async (req, res) => {
 export const deleteReservas = async (req, res) => {
     const { id } = req.params;
     try {
-        const reserva = await Reserva.findByPk(id);
-        if (reserva === null) {
-            res.status(404).json({ error: "Reserva no encontrada" });
+        const resultado = await Reserva.findByPk(id);
+        if (resultado === null) {
+            res.status(404).json({ message: "Reserva no encontrada" });
         } else {
-            await Reserva.destroy({ where: { id } });
+            await resultado.destroy({ where: { id } });
             res.json("Reserva eliminada");
         }
     } catch (error) {
-        res.status(500).json({ error: "Error interno en el servidor" });
+        console.error(error);
+        res.status(500).json({ message: "Error interno en el servidor" });
     }
 }

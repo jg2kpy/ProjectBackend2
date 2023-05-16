@@ -5,7 +5,7 @@ export const getMesas = async (req, res) => {
         const mesas = await Mesa.findAll();
         res.json(mesas);
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).json({ message: "Error interno en el servidor" });
     }
 };
@@ -30,7 +30,7 @@ export const postMesas = async (req, res) => {
         });
         res.json(mesa);
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).json({ message: "Error interno en el servidor" });
     }
 };
@@ -65,7 +65,7 @@ export const putMesas = async (req, res) => {
             res.json(resultado[1]);
         }
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).json({ message: "Error interno en el servidor" });
     }
 };
@@ -73,16 +73,16 @@ export const putMesas = async (req, res) => {
 export const deleteMesas = async (req, res) => {
     const { id } = req.params;
     try {
-        const result = await Mesa.destroy({
+        const resultado = await Mesa.destroy({
             where: { id },
         });
-        if (result === 0) {
+        if (resultado === 0) {
             res.status(404).json({ message: "Mesa no encontrada" });
         } else {
             res.json({ message: "Mesa eliminada" });
         }
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).json({ message: "Error interno en el servidor" });
     }
 };

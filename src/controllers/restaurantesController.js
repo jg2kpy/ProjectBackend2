@@ -43,8 +43,8 @@ export const putRestaurantes = async (req, res) => {
 export const deleteRestaurantes = async (req, res) => {
     try {
         const { id } = req.params;
-        const deletedRows = await Restaurante.destroy({ where: { id } });
-        if (deletedRows === 0) {
+        const resultado = await Restaurante.destroy({ where: { id } });
+        if (resultado === 0) {
             res.status(404).json({ message: "Restaurante no encontrado" });
         } else {
             res.json({ message: "Restaurante eliminado" });
