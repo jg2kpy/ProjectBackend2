@@ -5,8 +5,8 @@ import { getReservas, postReservas, putReservas, deleteReservas } from "../contr
 const router = express.Router();
 
 //Configurar las rutas
-router.get("/", getReservas)
 router.post("/", postReservas)
+router.get("/", getReservas)
 router.put("/:id", putReservas)
 router.delete("/:id", deleteReservas)
 

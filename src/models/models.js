@@ -1,4 +1,4 @@
-import Sequelize from "sequelize";
+import { Sequelize } from "sequelize";
 import fs from "fs";
 
 //Leer el archivo de configuración de la base de datos
@@ -76,6 +76,13 @@ export const Reserva = sequelize.define("Reserva", {
         primaryKey: true,
         autoIncrement: true,
     },
+    id_cliente: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'Clientes', 
+            key: 'id', 
+        }
+    },
     id_restaurante: {
         type: Sequelize.INTEGER,
         references: {
@@ -93,20 +100,27 @@ export const Reserva = sequelize.define("Reserva", {
     fecha: {
         type: Sequelize.DATE
     },
-    rango_hora: {
-        type: Sequelize.STRING
-    },
-    id_cliente: {
-        type: Sequelize.INTEGER,
-        references: {
-            model: 'Clientes', 
-            key: 'id', 
-        }
-    },
     cantidad: {
         type: Sequelize.INTEGER
     },
 });
 
-Restaurante.hasMany(Mesa);
+export const RangoDeHoraPorReserva = sequelize.define("RangoDeHoraPorReserva", {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    id_reserva: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'Reserva', 
+            key: 'id', 
+        }
+    },
+    hora: {
+        type: Sequelize.STRING,
+    }
+});
 
+Restaurante.hasMany(Mesa);
