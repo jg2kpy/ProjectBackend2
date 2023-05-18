@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservas</title>
+</head>
+<body>
+    <div class="container">
+        <a class="menu-btn" href="../index.html">Menu</a>
+        <br>
+
+        <h1>Reservas</h1>
+
+        <form name="formReserva" id="formReserva">
+            <h2>Seleccione el restaurante</h2>
+
+            <select name="selectRestaurantes" id="selectRestaurantes">
+            </select>
+
+            <h2>Seleccione la fecha</h2>
+
+            <input type="date" name="fecha" id="fecha">
+
+            <h2>Seleccione el rango de horas</h2>
+
+                <label for="desdeHora">Desde: </label>
+                <select name="desdeHora" id="desdeHora">
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                </select>
+                <label for="hastaHora">Hasta: </label>
+                <select name="hastaHora" id="hastaHora" disabled></select>
+            <br>
+            <br>
+            <button type="submit">Ver reservas</button>
+        </form>
+    </div>
+    <script src="./reservas.js"></script>
+</body>
+</html>
