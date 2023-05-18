@@ -1,4 +1,4 @@
-import ManipulacionDOM from "../DOM.js";
+import ManipulacionDOM from "../ManipulacionDOM.js";
 
 // Definir la URL del servidor como una variable global
 const API_URL = 'http://localhost:3000/clientes';

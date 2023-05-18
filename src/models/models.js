@@ -1,8 +1,16 @@
 import Sequelize from "sequelize";
 import fs from "fs";
 
-//Leer el archivo de configuración de la base de datos
-const dbConfig = JSON.parse(fs.readFileSync("./db.json"));
+let dbConfig = {};
+
+ // Leer el archivo de configuración de la base de datos
+try {
+    dbConfig = JSON.parse(fs.readFileSync("./db.json"));
+} catch (err) {
+    //Usar la configuracion default
+    dbConfig = { dialect: "sqlite", storage: "./db.sqlite3" }
+    console.error("Error al leer el archivo de configuración de la base de datos, usando la configuracion default");
+}
 
 //Crear la instancia de Sequelize
 export const sequelize = new Sequelize(dbConfig)
