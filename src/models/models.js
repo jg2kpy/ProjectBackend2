@@ -114,7 +114,7 @@ export const RangoDeHoraPorReserva = sequelize.define("RangoDeHoraPorReserva", {
     id_reserva: {
         type: Sequelize.INTEGER,
         references: {
-            model: 'Reserva', 
+            model: 'Reservas', 
             key: 'id', 
         }
     },
