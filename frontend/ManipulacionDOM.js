@@ -1,6 +1,6 @@
 import API from "./API.js";
 
-export default class DOM {
+export default class ManipulacionDOM {
 
     constructor(agregarForm, tablaBody, divEditarForm, editarForm, API_URL, funcComp) {
 
