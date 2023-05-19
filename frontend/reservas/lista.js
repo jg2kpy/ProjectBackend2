@@ -61,6 +61,7 @@ $(document).ready(async function () {
     // DataTable
     var table = $('#lista').DataTable({
         "order": [[ 4, 'asc' ], [ 8, 'asc' ], [ 3, 'asc' ]],
+        "pageLength": 25,
         initComplete: function () {
             // Apply the search
             this.api()
