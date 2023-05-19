@@ -48,7 +48,6 @@ formReserva.addEventListener("submit", async (event) => {
 })
 
 formConfirmarReserva.addEventListener("submit", async (event) => {
-    event.preventDefault();
 
     const cedula = parseInt(document.getElementById("cedula").value);
 
