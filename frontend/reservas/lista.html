@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de reservas</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+</head>
+<body>
+    <div class="container">
+        <a class="menu-btn" href="../index.html">Menu</a>
+        <br>
+
+        <h1>Lista de Reservas</h1>
+        <h2>Mesas libres</h2>
+        <table id="lista">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente ID</th>
+                    <th>Restaurante ID</th>
+                    <th>Mesa ID</th>
+                    <th>Fecha</th>
+                    <th>Cantidad</th>
+                    <th>Creacion</th>
+                    <th>Modificacion</th>
+                    <th>Desde</th>
+                    <th>Hasta</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-body">
+                <!-- Los registros se agregarán aquí mediante JavaScript -->
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente ID</th>
+                    <th>Restaurante ID</th>
+                    <th>Mesa ID</th>
+                    <th>Fecha</th>
+                    <th>Cantidad</th>
+                    <th>Creacion</th>
+                    <th>Modificacion</th>
+                    <th>Desde</th>
+                    <th>Hasta</th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="./lista.js"></script>
+</body>
+</html>

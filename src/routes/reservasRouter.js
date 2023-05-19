@@ -9,6 +9,6 @@ router.post("/", postReservas)
 router.get("/", getReservas)
 router.put("/:id", putReservas)
 router.delete("/:id", deleteReservas)
-router.get("/libres", getLibres)
+router.post("/libres", getLibres)
 
 export default router;

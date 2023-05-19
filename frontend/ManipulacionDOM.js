@@ -75,12 +75,14 @@ export default class ManipulacionDOM {
         const fila = document.createElement("tr");
 
         Object.keys(elemento).forEach((key) => {
-            const td = document.createElement("td")
-            const value = elemento[key]
+            if (elemento[key] !== null) {
+                const td = document.createElement("td")
+                const value = elemento[key]
 
-            td.textContent = value
+                td.textContent = value
 
-            fila.appendChild(td)
+                fila.appendChild(td)
+            } 
         })
 
         const acciones = document.createElement("td");

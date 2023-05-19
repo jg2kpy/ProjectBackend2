@@ -38,11 +38,58 @@
                     <option value="23">23</option>
                 </select>
                 <label for="hastaHora">Hasta: </label>
-                <select name="hastaHora" id="hastaHora" disabled></select>
+                <select name="hastaHora" id="hastaHora" disabled>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                </select>
             <br>
             <br>
             <button type="submit">Ver reservas</button>
         </form>
+
+        <h2>Mesas libres</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Posicion X</th>
+                    <th>Posicion Y</th>
+                    <th>Nro piso</th>
+                    <th>Capacidad</th>
+                    <th>Creacion</th>
+                    <th>Modificacion</th>
+                    <th>Id Restaurante</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-body">
+                <!-- Los registros se agregarán aquí mediante JavaScript -->
+            </tbody>
+        </table>
+
+        <br>
+        <br>
+        <br>
+
+        <h2>Confirmar reservacion</h2>
+
+        <form name="formConfirmarReserva" id="formConfirmarReserva">
+            <label for="cedula">Cedula:</label>
+            <input type="number" name="cedula" id="cedula">
+            <input type="submit" value="Reservar">
+            <br>
+            <a href="../clientes/clientes.html">Registrar cliente</a>
+        </form>
+
     </div>
     <script src="./reservas.js"></script>
 </body>

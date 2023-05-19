@@ -7,7 +7,7 @@ export const verificacionCreacionReserva = async (req = request, res = response,
 
         next()
     } catch (error) {
-        console.log('Error en verificacionCreacionReserva - ', error)
+        console.error('Error en verificacionCreacionReserva - ', error)
         next(error)
     }
 }

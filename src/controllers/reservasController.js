@@ -4,9 +4,14 @@ export const getLibres = async (req, res) => {
     const {
         id_restaurante,
         fecha,
-        rangos_de_hora,
+        desdeHora,
+        hastaHora,
     } = req.body
 
+    const rangos_de_hora = []
+    for (let index = desdeHora; index < hastaHora; index++) {
+        rangos_de_hora.push(`${index}-${index+1}`)
+    }
     let listaMesas = await Mesa.findAll({
         where: {
             id_restaurante: id_restaurante,
@@ -22,6 +27,7 @@ export const getLibres = async (req, res) => {
 
     if( reservas.length === 0 ) {
         res.json(listaMesas)
+        return;
     }
 
     const rangos_de_hora_totales = await RangoDeHoraPorReserva.findAll()
@@ -47,7 +53,7 @@ export const getLibres = async (req, res) => {
 export const postReservas = async (req, res) => {
     const {
         id_cliente, id_restaurante, id_mesa,
-        fecha, cantidad, rangos_de_hora,
+        fecha, cantidad, desdeHora, hastaHora,
     } = req.body
 
     const reserva = await Reserva.create({
@@ -57,6 +63,11 @@ export const postReservas = async (req, res) => {
         fecha,
         cantidad,
     })
+
+    const rangos_de_hora = []
+    for (let index = desdeHora; index < hastaHora; index++) {
+        rangos_de_hora.push(`${index}-${index+1}`)
+    }
 
     for (const rango_hora of rangos_de_hora) {
         RangoDeHoraPorReserva.create({
