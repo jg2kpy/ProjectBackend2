@@ -116,6 +116,7 @@ export const putReservas = async (req, res) => {
     res.json(reserva)
 }
 
+
 export const deleteReservas = async (req, res) => {
     const { id } = req.params
 

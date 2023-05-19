@@ -1,8 +1,16 @@
 import { Sequelize } from "sequelize";
 import fs from "fs";
 
-//Leer el archivo de configuración de la base de datos
-const dbConfig = JSON.parse(fs.readFileSync("./db.json"));
+let dbConfig = {};
+
+ // Leer el archivo de configuración de la base de datos
+try {
+    dbConfig = JSON.parse(fs.readFileSync("./db.json"));
+} catch (err) {
+    //Usar la configuracion default
+    dbConfig = { dialect: "sqlite", storage: "./db.sqlite3" }
+    console.error("Error al leer el archivo de configuración de la base de datos, usando la configuracion default");
+}
 
 //Crear la instancia de Sequelize
 export const sequelize = new Sequelize(dbConfig)
@@ -49,13 +57,6 @@ export const Mesa = sequelize.define("Mesa", {
     nombre: {
         type: Sequelize.STRING
     },
-    id_restaurante: {
-        type: Sequelize.INTEGER,
-        references: {
-            model: 'Restaurantes', 
-            key: 'id', 
-        }
-    },
     posicion_x: {
         type: Sequelize.INTEGER
     },
@@ -63,11 +64,19 @@ export const Mesa = sequelize.define("Mesa", {
         type: Sequelize.INTEGER
     },
     nro_piso: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        defaultValue: 1
     },
     capacidad_comensales: {
         type: Sequelize.INTEGER
     },
+
+});
+
+Restaurante.hasMany(Mesa, {
+    foreignKey: {
+        name: 'id_restaurante',
+    }
 });
 
 export const Reserva = sequelize.define("Reserva", {
@@ -86,15 +95,15 @@ export const Reserva = sequelize.define("Reserva", {
     id_restaurante: {
         type: Sequelize.INTEGER,
         references: {
-            model: 'Restaurantes', 
-            key: 'id', 
+            model: 'Restaurantes',
+            key: 'id',
         }
     },
     id_mesa: {
         type: Sequelize.INTEGER,
         references: {
-            model: 'Mesas', 
-            key: 'id', 
+            model: 'Mesas',
+            key: 'id',
         }
     },
     fecha: {
@@ -114,8 +123,8 @@ export const RangoDeHoraPorReserva = sequelize.define("RangoDeHoraPorReserva", {
     id_reserva: {
         type: Sequelize.INTEGER,
         references: {
-            model: 'Reservas', 
-            key: 'id', 
+            model: 'Reservas',
+            key: 'id',
         }
     },
     hora: {
