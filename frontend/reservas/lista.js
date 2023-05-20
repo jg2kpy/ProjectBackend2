@@ -55,13 +55,16 @@ $(document).ready(async function () {
     // Setup - add a text input to each footer cell
     $('#lista tfoot th').each(function () {
         var title = $(this).text();
-        $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+        $(this).html('<input type="text" placeholder="Buscar ' + title + '" />');
     });
  
     // DataTable
     var table = $('#lista').DataTable({
-        "order": [[ 4, 'asc' ], [ 8, 'asc' ], [ 3, 'asc' ]],
+        "order": [[ 3, 'asc' ], [ 7, 'asc' ], [ 2, 'asc' ]],
         "pageLength": 25,
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
+        },
         initComplete: function () {
             // Apply the search
             this.api()

@@ -11,6 +11,7 @@ const hastaHora = document.getElementById("hastaHora");
 const tablaBody = document.getElementById("tabla-body");
 
 fecha.min = new Date().toISOString().split("T")[0];
+fecha.value = new Date().toISOString().split("T")[0];
 
 function getRestaurantes() {
     fetch(API_URL + 'restaurantes')
@@ -50,7 +51,9 @@ formReserva.addEventListener("submit", async (event) => {
 formConfirmarReserva.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const cedula = parseInt(document.getElementById("cedula").value);
+    const cedulaInput = document.getElementById("cedula")
+
+    const cedula = parseInt(cedulaInput.value);
 
     const verificacion = await verificarCedula(cedula);
 
@@ -83,6 +86,9 @@ formConfirmarReserva.addEventListener("submit", async (event) => {
         body: JSON.stringify(reserva),
     })
 
+    cedulaInput.value = ""
+
+    location. reload()
 })
 
 function getCheckedRadioValue(name) {
