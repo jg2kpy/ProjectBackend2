@@ -132,4 +132,15 @@ export const RangoDeHoraPorReserva = sequelize.define("RangoDeHoraPorReserva", {
     }
 });
 
+export const Categoria = sequelize.define("Categoria", {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    nombre: {
+        type: Sequelize.STRING
+    },
+});
+
 Restaurante.hasMany(Mesa);

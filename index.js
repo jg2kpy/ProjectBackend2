@@ -5,6 +5,7 @@ import restaurantesRouter from "./src/routes/restaurantesRouter.js";
 import clientesRouter from "./src/routes/clientesRouter.js";
 import mesasRouter from "./src/routes/mesasRouter.js";
 import reservasRouter from "./src/routes/reservasRouter.js";
+import categoriasRouter from "./src/routes/categoriasRouter.js";
 
 //Inicializar el servidor
 const app = express();
@@ -27,6 +28,7 @@ app.use("/restaurantes", restaurantesRouter)
 app.use("/clientes", clientesRouter)
 app.use("/mesas", mesasRouter)
 app.use("/reservas", reservasRouter)
+app.use("/categorias", categoriasRouter)
 
 //Levantar el servidor
 const PORT = process.env.PORT || 3000;
