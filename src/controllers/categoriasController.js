@@ -12,8 +12,8 @@ export const getCategorias = async (req, res) => {
 
 export const postCategorias = async (req, res) => {
     try {
-        const { nombre, direccion } = req.body;
-        const categoria = await Categoria.create({ nombre, direccion });
+        const { nombre } = req.body;
+        const categoria = await Categoria.create({ nombre });
         res.json(categoria);
     } catch (error) {
         console.error(error);
@@ -23,10 +23,10 @@ export const postCategorias = async (req, res) => {
 
 export const putCategorias = async (req, res) => {
     try {
-        const { nombre, direccion } = req.body;
+        const { nombre } = req.body;
         const { id } = req.params;
         const resultado = await Categoria.update(
-            { nombre, direccion },
+            { nombre },
             { where: { id } }
         );
         if (resultado[0] === 0) {

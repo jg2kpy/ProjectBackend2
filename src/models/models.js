@@ -143,4 +143,26 @@ export const Categoria = sequelize.define("Categoria", {
     },
 });
 
+export const Producto = sequelize.define("Producto", {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    nombre: {
+        type: Sequelize.STRING
+    },
+    id_categoria: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'Categoria',
+            key: 'id',
+        }
+    },
+    precio: {
+        type: Sequelize.INTEGER
+    },
+});
+
+
 Restaurante.hasMany(Mesa);
