@@ -164,5 +164,55 @@ export const Producto = sequelize.define("Producto", {
     },
 });
 
+export const ConsumoCabecera = sequelize.define("Producto", {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    id_mesa: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'Mesas',
+            key: 'id',
+        }
+    },
+    id_cliente: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'Clientes', 
+            key: 'id', 
+        }
+    },
+    estado: {
+        type: Sequelize.STRING
+    },
+    total: {
+        type: Sequelize.INTEGER
+    },
+    fecha_cierre: {
+        type: Sequelize.DATE
+    },
+});
+
+export const ConsumoDetalle = sequelize.define("ConsumoDetalle", {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    id_producto: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'Producto',
+            key: 'id',
+        }
+    },
+    cantidad: {
+        type: Sequelize.INTEGER
+    },
+});
+
 
 Restaurante.hasMany(Mesa);
+ConsumoCabecera.hasMany(ConsumoDetalle);
