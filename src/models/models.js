@@ -164,7 +164,7 @@ export const Producto = sequelize.define("Producto", {
     },
 });
 
-export const ConsumoCabecera = sequelize.define("Producto", {
+export const ConsumoCabecera = sequelize.define("ConsumoCabecera", {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -184,6 +184,7 @@ export const ConsumoCabecera = sequelize.define("Producto", {
             key: 'id', 
         }
     },
+    // Los estados pueden ser: <"abierto,"cerrado">
     estado: {
         type: Sequelize.STRING
     },
@@ -204,7 +205,7 @@ export const ConsumoDetalle = sequelize.define("ConsumoDetalle", {
     id_producto: {
         type: Sequelize.INTEGER,
         references: {
-            model: 'Producto',
+            model: 'Productos',
             key: 'id',
         }
     },
@@ -214,5 +215,8 @@ export const ConsumoDetalle = sequelize.define("ConsumoDetalle", {
 });
 
 
-Restaurante.hasMany(Mesa);
-ConsumoCabecera.hasMany(ConsumoDetalle);
+ConsumoCabecera.hasMany(ConsumoDetalle, {
+    foreignKey: {
+        name: 'id_cabecera',
+    }
+});

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion Consumo</title>
+    <link rel="stylesheet" href="reservas.css">
+</head>
+<body>
+    <div class="container">
+        <a class="menu-btn" href="../index.html">Menu</a>
+        <br>
+
+        <h1>Gestión de Consumo de Mesas</h1>
+
+        <form name="formConsumo" id="formConsumo">
+            <h2>Seleccione la Mesa</h2>
+
+            <select name="selectMesas" id="selectMesas">
+            </select>
+            
+            <br>
+            <button type="submit">Boton</button>
+        </form>
+
+        <h2>Detalles de Consumo de la Mesa</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ID_Producto</th>
+                    <th>Cantidad</th>
+                    <th>Creado</th>
+                    <th>Actualizado</th>
+                    <th>ID_Cabecera</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-body">
+                <!-- Los registros se agregarán aquí mediante JavaScript -->
+            </tbody>
+        </table>
+        
+        <button id="boton_agregar_detalle">Agregar Detalles</button>
+
+        <br>
+        <br>
+        <br>
+
+        <h2>Confirmar reservacion</h2>
+        <br>
+
+        <form name="formConfirmarReserva" id="formConfirmarReserva">
+            <label for="cedula">Cedula:</label>
+            <input type="number" name="cedula" id="cedula" required>
+            <input type="submit" value="Reservar">
+            <a href="../clientes/clientes.html">Registrar cliente</a>
+        </form>
+
+        
+        <div id="agregar-detalle-formulario" style="display: none;">
+            <h2>Agregar Detalle</h2>
+            <form>
+                <div>
+                    <label for="id_cabecera">Id_Cabecera:</label>
+                    <input id="id_cabecera" required type="number">
+                </div>
+                <div>
+                    <label for="id_producto">Id_Producto:</label>
+                    <input id="id_producto" required type="number">
+                </div>
+                <div>
+                    <label for="cantidad">Cantidad:</label>
+                    <input id="cantidad" required type="number">
+                </div>
+                <button type="submit">Agregar</button>
+            </form>
+        </div>
+
+    </div>
+    <script src="./consumo_mesas.js"></script>
+</body>
+</html>
+    
