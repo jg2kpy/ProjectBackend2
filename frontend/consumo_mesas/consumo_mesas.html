@@ -31,7 +31,6 @@
                     <th>Cantidad</th>
                     <th>Creado</th>
                     <th>Actualizado</th>
-                    <th>ID_Cabecera</th>
                 </tr>
             </thead>
             <tbody id="tabla-body">
@@ -40,21 +39,6 @@
         </table>
         
         <button id="boton_agregar_detalle">Agregar Detalles</button>
-
-        <br>
-        <br>
-        <br>
-
-        <h2>Confirmar reservacion</h2>
-        <br>
-
-        <form name="formConfirmarReserva" id="formConfirmarReserva">
-            <label for="cedula">Cedula:</label>
-            <input type="number" name="cedula" id="cedula" required>
-            <input type="submit" value="Reservar">
-            <a href="../clientes/clientes.html">Registrar cliente</a>
-        </form>
-
         
         <div id="agregar-detalle-formulario" style="display: none;">
             <h2>Agregar Detalle</h2>
@@ -73,6 +57,25 @@
                 </div>
                 <button type="submit">Agregar</button>
             </form>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <form name="formConfirmarReserva" id="formConfirmarReserva">
+            <label for="cliente">Cliente:</label>
+            <input type="number" name="cedula" id="cedula" required>
+            <input type="submit" value="Cambiar">
+            <a href="../clientes/clientes.html">Registrar cliente</a>
+        </form>
+
+        <!-- chatgpt -->
+        <button id="btnMostrarClientes">Mostrar Clientes</button>
+            <div id="listaClientes" style="display: none;">
+            <input type="text" id="busquedaCliente" placeholder="Buscar cliente">
+            <ul id="clientes">
+                <!-- Aquí se mostrará la lista de clientes -->
+            </ul>
         </div>
 
     </div>
