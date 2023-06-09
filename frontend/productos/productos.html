@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD de Productos</title>
+    <link rel="stylesheet" href="../crud.css">
+</head>
+
+<body>
+    <div class="container">
+        <a class="menu-btn" href="../index.html">Menu</a>
+        <br>
+
+        <h1>CRUD de Productos</h1>
+
+        <h2>Agregar Producto</h2>
+        <br>
+        <form>
+            <div>
+                <label for="nombre">Nombre:</label>
+                <input id="nombre" required type="text">
+            </div>
+            <div>
+                <label for="id_categoria">ID Categoria:</label>
+                <input id="id_categoria" required type="number">
+            </div>
+            <div>
+                <label for="precio">Precio:</label>
+                <input id="precio" required type="number">
+            </div>
+
+            <button type="submit">Agregar</button>
+        </form>
+
+        <h2>Productos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>ID_Categoria</th>
+                    <th>Precio</th>
+                    <th>Creacion</th>
+                    <th>Modificacion</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-body">
+                <!-- Los registros se agregarán aquí mediante JavaScript -->
+            </tbody>
+        </table>
+
+        <div id="editar-formulario" style="display: none;">
+            <h2>Editar Producto</h2>
+            <form>
+                <div>
+                    <label for="id">Id:</label>
+                    <input id="id" readonly required type="text">
+                </div>
+                <div>
+                    <label for="nombre">Nombre:</label>
+                    <input id="nombre" required type="text">
+                </div>
+                <div>
+                    <label for="id_categoria">ID Categoria:</label>
+                    <input id="id_categoria" required type="number">
+                </div>
+                <div>
+                    <label for="precio">Precio:</label>
+                    <input id="precio" required type="number">
+                </div>
+                <button type="submit">Aplicar</button>
+            </form>
+        </div>
+
+        <script src="productos.js" type="module"></script>
+
+</body>

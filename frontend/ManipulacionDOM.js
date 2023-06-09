@@ -29,11 +29,14 @@ export default class ManipulacionDOM {
                 DTO[field.id] = field.value;
             })
 
+            console.log("Agregando elemento:", DTO);
             const resultado = await this.api.agregarElemento(DTO);
             if (resultado) {
+                console.log("Elemento agregado:", resultado);
                 this.agregarForm.reset();
                 this.refrescarTabla();
             }else{
+                console.log("Error al agregar elemento");
                 alert("No se pudo agregar el elemento");
             }
         })
@@ -48,17 +51,21 @@ export default class ManipulacionDOM {
                 DTO[field.id] = field.value;
             })
 
+            console.log("Actualizando elemento:", DTO);
             const resultado = await this.api.actualizarElemento(DTO["id"], DTO);
             if (resultado) {
+                console.log("Elemento actualizado:", resultado);
                 this.ocultarEditarFormulario();
                 this.refrescarTabla();
             }else{
+                console.log("Error al editar elemento");
                 alert("No se pudo editar el elemento");
             }
         })
     }
 
     async refrescarTabla() {
+        console.log("Refrescando tabla");
         const elementos = await this.api.obtenerElementos();
 
         this.tablaBody.innerHTML = "";
@@ -122,9 +129,13 @@ export default class ManipulacionDOM {
     async eliminarElementoClick(elemento) {
         const confirmacion = confirm(`¿Desea eliminar el elemento ${elemento.id}?`);
         if (confirmacion) {
+            console.log("Eliminando elemento:", elemento);
             const respuesta = await this.api.eliminarElemento(elemento.id);
             if (!respuesta) {
+                console.log("Error al eliminar elemento");
                 alert("No se pudo eliminar el elemento");
+            } else {
+                console.log("Elemento eliminado:", elemento);
             }
             this.refrescarTabla();
         }

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion Consumo</title>
+    <link rel="stylesheet" href="consumo_mesas.css">
+</head>
+
+<body>
+    <div class="container">
+        <a class="menu-btn" href="../index.html">Menu</a>
+        <br>
+
+        <h1>Gestión de Consumo de Mesas</h1>
+
+        <form name="formConsumo" id="formConsumo">
+            <h2>Seleccione la Mesa</h2>
+            <select name="selectMesas" id="selectMesas">
+            </select>
+
+        </form>
+
+
+        <h2 id="estado">Estado: </h2>
+
+
+        <form name="formConfirmarReserva" id="formConfirmarReserva">
+            <label for="cliente">Cliente:</label>
+            <input type="text" name="inputCliente" id="inputCliente" placeholder="Buscar">
+            <select name="selectClientes" id="selectClientes"></select>
+            <input type="submit" value="Asignar">
+            <a href="../clientes/clientes.html">Registrar cliente</a>
+        </form>
+
+        <div id="divDetalles">
+            <h2 id="cliente">Cliente: </h2>
+
+            <form name="desocuparMesa" id="desocuparMesa">
+                <input type="submit" value="Desocupar Mesa">
+            </form>
+
+            <h3>Detalles de Consumo de la Mesa</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>ID_Producto</th>
+                        <th>Cantidad</th>
+                        <th>Creado</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-body">
+                    <!-- Los registros se agregarán aquí mediante JavaScript -->
+                </tbody>
+            </table>
+
+            <h2 id="total">Total: </h2>
+
+            <div id="agregar-detalle-formulario">
+                
+                
+                <h3>Agregar Consumision</h3>
+                <form>
+                    <div>
+                        <input id="id_cabecera" required type="number" hidden>
+                    </div>
+                    <div>
+                        <label for="id_producto">Id_Producto:</label>
+                        <input id="id_producto" required type="number">
+                    </div>
+                    <div>
+                        <label for="cantidad">Cantidad:</label>
+                        <input id="cantidad" required type="number">
+                    </div>
+                    <button type="submit">Agregar</button>
+                </form>
+            </div>
+            <form id="generatePDFForm">
+                <button  type="submit" >Generar PDF</button>
+                <div id="pdfViewer"></div>
+              
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.5/pdfmake.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.5/vfs_fonts.js"></script>
+            </form>
+        </div>
+        <br>
+        <br>
+
+    </div>
+    <script src="./consumo_mesas.js"></script>
+</body>
+
+</html>

@@ -132,4 +132,91 @@ export const RangoDeHoraPorReserva = sequelize.define("RangoDeHoraPorReserva", {
     }
 });
 
-Restaurante.hasMany(Mesa);
+export const Categoria = sequelize.define("Categoria", {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    nombre: {
+        type: Sequelize.STRING
+    },
+});
+
+export const Producto = sequelize.define("Producto", {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    nombre: {
+        type: Sequelize.STRING
+    },
+    id_categoria: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'Categoria',
+            key: 'id',
+        }
+    },
+    precio: {
+        type: Sequelize.INTEGER
+    },
+});
+
+export const ConsumoCabecera = sequelize.define("ConsumoCabecera", {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    id_mesa: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'Mesas',
+            key: 'id',
+        }
+    },
+    id_cliente: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'Clientes', 
+            key: 'id', 
+        }
+    },
+    // Los estados pueden ser: <"abierto,"cerrado">
+    estado: {
+        type: Sequelize.STRING
+    },
+    total: {
+        type: Sequelize.INTEGER
+    },
+    fecha_cierre: {
+        type: Sequelize.DATE
+    },
+});
+
+export const ConsumoDetalle = sequelize.define("ConsumoDetalle", {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    id_producto: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'Productos',
+            key: 'id',
+        }
+    },
+    cantidad: {
+        type: Sequelize.INTEGER
+    },
+});
+
+
+ConsumoCabecera.hasMany(ConsumoDetalle, {
+    foreignKey: {
+        name: 'id_cabecera',
+    }
+});
