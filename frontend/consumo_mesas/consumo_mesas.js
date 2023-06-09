@@ -15,6 +15,8 @@ const agregarDetalleForm = divAgregarDetalleForm.querySelector("form");
 const divDetalles = document.getElementById("divDetalles");
 const estado = document.getElementById("estado");
 const cliente = document.getElementById("cliente");
+const total = document.getElementById("total")
+const formDesocuparMesa = document.getElementById("desocuparMesa");
 
 let id_cabecera = 0;
 
@@ -44,6 +46,27 @@ async function getClientes() {
         .catch(error => console.error(error));  
 }
 
+formDesocuparMesa.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const DTO = { 
+        id_cliente: parseInt(selectClientes.value),
+        estado: "cerrado"
+    }
+
+    await fetch(`${API_URL}consumo/cabecera/${id_cabecera}`, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'PUT',
+        body: JSON.stringify(DTO),
+    })
+
+    const buscar = {
+        id_mesa: parseInt(selectMesas.value)
+    }
+    refrescarTabla(buscar);
+})
+
 formConfirmarReserva.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (estado.innerText === "Estado: Desocupado") {
@@ -52,7 +75,7 @@ formConfirmarReserva.addEventListener("submit", async (event) => {
             id_cliente: parseInt(selectClientes.value),
         }
 
-        await fetch(API_URL + 'consumo/cabecera', {
+        const cabecera = await fetch(API_URL + 'consumo/cabecera', {
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -64,6 +87,17 @@ formConfirmarReserva.addEventListener("submit", async (event) => {
         divDetalles.hidden = false;
 
         cliente.innerText = `Cliente: ${selectClientes.options[selectClientes.selectedIndex].text}`;
+
+        total.innerText = `Total: 0`;
+
+        id_cabecera = await cabecera.json().then(data => data.id);
+        console.log(id_cabecera);
+
+        const buscar = {
+            id_mesa: parseInt(selectMesas.value)
+        }
+        refrescarTabla(buscar);
+
 
     }else{
         const DTO = { 
@@ -141,21 +175,11 @@ agregarDetalleForm.addEventListener("submit", async (event) => {
 
     const resultado = await agregarElemento(DTO);
 
-    const cabecera = await fetch(API_URL+"consumo/cabecera");
-
-    cabecera.json().then((data) => {
-        console.log(data);
-        data.find((elemento) => {
-            if (elemento.id === id_cabecera) {
-                document.getElementById("total").innerText = `Total: ${elemento.total}`;
-            }
-        })
-    })
-
-    console.log(cabecera);
+    console.log(resultado);
 
     if (resultado) {
-        refrescarTabla({id_mesa: parseInt(selectMesas.value)});
+        await refrescarTabla({id_mesa: parseInt(selectMesas.value)});
+        console.log("Se agrego el elemento");
     }else{
         alert("No se pudo editar el elemento");
     }
@@ -171,7 +195,7 @@ async function agregarElemento(elemento) {
             body: JSON.stringify(elemento)
         });
         const data = await response.json();
-        return response.status === 200;
+        return data;
     } catch (error) {
         console.error(error);
     }
@@ -202,6 +226,8 @@ async function refrescarTabla(buscar) {
                 cliente.innerText = `Cliente: ${selectClientes[index].text}`;
             } 
         }
+
+        total.innerText = `Total: ${elementos[0].total}`;
         
     }else{
         estado.innerText = `Estado: Desocupado`;

@@ -10,9 +10,9 @@ export const getCabeceraAbiertaFromMesa = async (req, res) => {
             },
             //incluir detalles
             include: [
-            {
-                model: ConsumoDetalle
-            }
+                {
+                    model: ConsumoDetalle
+                }
             ]
         });
         res.json(consumoCabeceras);
@@ -34,12 +34,12 @@ export const getConsumoCabecera = async (req, res) => {
 
 export const postConsumoCabecera = async (req, res) => {
     try {
-        const { 
-            id_mesa, 
+        const {
+            id_mesa,
             id_cliente,
         } = req.body;
-        const consumoCabecera = await ConsumoCabecera.create({ 
-            id_mesa, 
+        const consumoCabecera = await ConsumoCabecera.create({
+            id_mesa,
             id_cliente,
             estado: "abierto",
             total: 0,
@@ -53,19 +53,30 @@ export const postConsumoCabecera = async (req, res) => {
 
 export const putConsumoCabecera = async (req, res) => {
     try {
-        const { 
-            id_cliente, 
-            estado, 
+        const {
+            id_cliente,
+            estado,
         } = req.body;
         const { id } = req.params;
 
         const resultado = await ConsumoCabecera.update(
-            { 
-                id_cliente, 
+            {
+                id_cliente,
                 estado,
-            }, 
+            },
             { where: { id } }
         );
+
+        console.log(estado)
+
+        if (estado === "cerrado") {
+            const resultado = await ConsumoCabecera.update(
+                {
+                    fecha_cierre: new Date(),
+                },
+                { where: { id } }
+            );
+        }
 
         if (resultado[0] === 0) {
             res.status(404).json({ message: "Cabecera de Consumo no encontrada" });
@@ -91,13 +102,35 @@ export const getConsumoDetalle = async (req, res) => {
 export const postConsumoDetalle = async (req, res) => {
     try {
         const { id_cabecera, id_producto, cantidad } = req.body;
+
+        // Crear un nuevo detalle de consumo con los datos recibidos del front-end
         const Detalle = await ConsumoDetalle.create({ id_cabecera, id_producto, cantidad });
-        let oldTotal = ConsumoCabecera.findAll({where: {id: id_cabecera}}).total;
-        oldTotal = oldTotal ? oldTotal : 0;
-        const total = oldTotal + await Producto.findAll({where: {id: id_producto}}).precio * parseInt(cantidad);
-        console.log("Precio ", await Producto.findAll({where: {id: id_producto}}).precio);
-        ConsumoCabecera.update({total}, {where: {id: id_cabecera}});
-        res.json(Detalle);
+
+        // Obtener la cabecera original que se va a actualizar
+        const oldCabecera = await ConsumoCabecera.findByPk(id_cabecera);
+
+        // Obtener el valor del total de la cabecera original
+        const oldTotal = oldCabecera.dataValues["total"] || 0;
+
+        // Obtener el precio del producto que se va a agregar al consumo
+        const producto = await Producto.findByPk(id_producto);
+        const precio = producto.dataValues["precio"]
+
+        // Calcular el nuevo total, sumando el total anterior al nuevo producto agregado
+        const total = oldTotal + precio * parseInt(cantidad);
+
+        // Actualizar el valor total de la cabecera en la base de datos
+        await ConsumoCabecera.update({ total }, { where: { id: id_cabecera } });
+
+        // Obtener la cabecera actualizada para enviarla como respuesta al front-end
+        const updatedCabecera = await ConsumoCabecera.findOne({ where: { id: id_cabecera } });
+
+        // Enviar una respuesta 200 al front-end, con el detalle creado y la cabecera actualizada 
+        res.status(200).json({
+            detalle: Detalle,
+            cabecera: updatedCabecera,
+        });
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Error interno en el servidor" });
