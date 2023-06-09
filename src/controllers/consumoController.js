@@ -1,11 +1,4 @@
-import { ConsumoCabecera, ConsumoDetalle } from "../models/models.js";
-
-//TO DO: Implementar las funciones de consumo
-
-/* 
-
-*/
-
+import { ConsumoCabecera, ConsumoDetalle, Cliente, Producto } from "../models/models.js";
 
 export const getCabeceraAbiertaFromMesa = async (req, res) => {
     const id_mesa = req.query.id_mesa;
@@ -16,9 +9,11 @@ export const getCabeceraAbiertaFromMesa = async (req, res) => {
                 estado: "abierto"
             },
             //incluir detalles
-            include: [{
+            include: [
+            {
                 model: ConsumoDetalle
-            }]
+            }
+            ]
         });
         res.json(consumoCabeceras);
     } catch (error) {
@@ -41,17 +36,13 @@ export const postConsumoCabecera = async (req, res) => {
     try {
         const { 
             id_mesa, 
-            id_cliente, 
-            estado, 
-            total, 
-            fecha_cierre,
+            id_cliente,
         } = req.body;
         const consumoCabecera = await ConsumoCabecera.create({ 
             id_mesa, 
-            id_cliente, 
-            estado, 
-            total, 
-            fecha_cierre 
+            id_cliente,
+            estado: "abierto",
+            total: 0,
         });
         res.json(consumoCabecera);
     } catch (error) {
@@ -63,21 +54,15 @@ export const postConsumoCabecera = async (req, res) => {
 export const putConsumoCabecera = async (req, res) => {
     try {
         const { 
-            id_mesa, 
             id_cliente, 
             estado, 
-            total, 
-            fecha_cierre  
         } = req.body;
         const { id } = req.params;
 
         const resultado = await ConsumoCabecera.update(
             { 
-                id_mesa, 
                 id_cliente, 
-                estado, 
-                total, 
-                fecha_cierre  
+                estado,
             }, 
             { where: { id } }
         );
@@ -107,6 +92,11 @@ export const postConsumoDetalle = async (req, res) => {
     try {
         const { id_cabecera, id_producto, cantidad } = req.body;
         const Detalle = await ConsumoDetalle.create({ id_cabecera, id_producto, cantidad });
+        let oldTotal = ConsumoCabecera.findAll({where: {id: id_cabecera}}).total;
+        oldTotal = oldTotal ? oldTotal : 0;
+        const total = oldTotal + await Producto.findAll({where: {id: id_producto}}).precio * parseInt(cantidad);
+        console.log("Precio ", await Producto.findAll({where: {id: id_producto}}).precio);
+        ConsumoCabecera.update({total}, {where: {id: id_cabecera}});
         res.json(Detalle);
     } catch (error) {
         console.error(error);

@@ -5,15 +5,21 @@ const API_URL = 'http://localhost:3000/';
 const formConsumo = document.getElementById("formConsumo");
 const formConfirmarReserva = document.getElementById("formConfirmarReserva");
 const selectMesas = document.getElementById("selectMesas");
+const selectClientes = document.getElementById("selectClientes");
+const inputCliente = document.getElementById("inputCliente");
 const desdeHora = document.getElementById("desdeHora");
 const hastaHora = document.getElementById("hastaHora");
 const tablaBody = document.getElementById("tabla-body");
-const botonAgregarDetalle = document.getElementById("boton_agregar_detalle");
 const divAgregarDetalleForm = document.getElementById("agregar-detalle-formulario")
 const agregarDetalleForm = divAgregarDetalleForm.querySelector("form");
+const divDetalles = document.getElementById("divDetalles");
+const estado = document.getElementById("estado");
+const cliente = document.getElementById("cliente");
 
-function getMesas() {
-    fetch(API_URL + 'mesas')
+let id_cabecera = 0;
+
+async function getMesas() {
+    await fetch(API_URL + 'mesas')
         .then(response => response.json())
         .then(mesas => {
             mesas.forEach(mesa => {
@@ -21,7 +27,66 @@ function getMesas() {
             });
         })
         .catch(error => console.error(error));
+    const buscar = {
+        id_mesa: parseInt(selectMesas.children[0].value)
+    }
+    refrescarTabla(buscar);
 }
+
+async function getClientes() {
+    await fetch(API_URL + 'clientes')
+        .then(response => response.json())
+        .then(clientes => {
+            clientes.forEach(mesa => {
+                selectClientes.innerHTML += `<option value="${mesa.id}">${mesa.cedula} - ${mesa.nombre}</option>`;
+            });
+        })
+        .catch(error => console.error(error));  
+}
+
+formConfirmarReserva.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (estado.innerText === "Estado: Desocupado") {
+        const DTO = { 
+            id_mesa: parseInt(selectMesas.value),
+            id_cliente: parseInt(selectClientes.value),
+        }
+
+        await fetch(API_URL + 'consumo/cabecera', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(DTO),
+        })
+
+        estado.innerText = `Estado: Ocupado`;
+        divDetalles.hidden = false;
+
+        cliente.innerText = `Cliente: ${selectClientes.options[selectClientes.selectedIndex].text}`;
+
+    }else{
+        const DTO = { 
+            id_cliente: parseInt(selectClientes.value),
+            estado: "abierto"
+        }
+
+        await fetch(`${API_URL}consumo/cabecera/${id_cabecera}`, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'PUT',
+            body: JSON.stringify(DTO),
+        })
+
+        const buscar = {
+            id_mesa: parseInt(selectMesas.value)
+        }
+        refrescarTabla(buscar);
+
+    }
+
+})
 
 
 selectMesas.addEventListener("click", async (event) => {
@@ -35,9 +100,16 @@ selectMesas.addEventListener("click", async (event) => {
 
 })
 
-botonAgregarDetalle.addEventListener("click", async (event) => {
-    event.preventDefault();
-    mostrarAgregarDetallesFormulario();
+inputCliente.addEventListener("input", async (event) => {
+    Object.keys(selectClientes).forEach((key) => {
+        const option = selectClientes[key];
+        if (option.innerText.includes(inputCliente.value)) {
+            option.selected = true;
+            option.hidden = false
+        }else{
+            option.hidden = true
+        }
+    })
 })
 
 async function mostrarAgregarDetallesFormulario(elemento) {
@@ -68,8 +140,21 @@ agregarDetalleForm.addEventListener("submit", async (event) => {
     })
 
     const resultado = await agregarElemento(DTO);
+
+    const cabecera = await fetch(API_URL+"consumo/cabecera");
+
+    cabecera.json().then((data) => {
+        console.log(data);
+        data.find((elemento) => {
+            if (elemento.id === id_cabecera) {
+                document.getElementById("total").innerText = `Total: ${elemento.total}`;
+            }
+        })
+    })
+
+    console.log(cabecera);
+
     if (resultado) {
-        ocultarAgregarDetallesFormulario();
         refrescarTabla({id_mesa: parseInt(selectMesas.value)});
     }else{
         alert("No se pudo editar el elemento");
@@ -97,10 +182,32 @@ async function refrescarTabla(buscar) {
 
     tablaBody.innerHTML = "";
 
-    elementos[0].ConsumoDetalles.forEach((elemento) => {
-        const fila = crearFila(elemento);
-        tablaBody.appendChild(fila);
-    });
+    if (elementos.length > 0) {
+        estado.innerText = `Estado: Ocupado`;
+
+        divDetalles.hidden = false;
+
+        id_cabecera = elementos[0].id;
+
+        elementos[0].ConsumoDetalles.forEach((elemento) => {
+            delete elemento.updatedAt
+            delete elemento.id_cabecera
+            const fila = crearFila(elemento);
+            tablaBody.appendChild(fila);
+        });
+        
+        agregarDetalleForm.elements["id_cabecera"].value = parseInt(elementos[0].id);
+        for (let index = 0; index < selectClientes.length; index++) {
+            if (parseInt(selectClientes[index].value) === elementos[0].id_cliente) {
+                cliente.innerText = `Cliente: ${selectClientes[index].text}`;
+            } 
+        }
+        
+    }else{
+        estado.innerText = `Estado: Desocupado`;
+        divDetalles.hidden = true;
+    }
+    
 }
 
 async function obtenerElementos(buscar) {
@@ -150,4 +257,6 @@ async function reservar(params) {
 
 }
 
+getClientes()
 getMesas()
+
