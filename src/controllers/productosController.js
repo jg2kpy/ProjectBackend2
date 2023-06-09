@@ -1,5 +1,20 @@
 import { Producto } from "../models/models.js";
 
+export const obtenerPrecioFromProductoId = async (req, res) => {
+    try {
+        const { id } = req.body;
+        const producto = await Producto.findByPk(id);
+        if (producto) {
+            res.json(producto.precio);
+        } else {
+            res.status(404).json({ message: "Producto no encontrado" });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error interno en el servidor" });
+    }
+};
+
 export const getProductos = async (req, res) => {
     try {
         const productos = await Producto.findAll();

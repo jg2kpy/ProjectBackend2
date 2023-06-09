@@ -67,8 +67,6 @@ export const putConsumoCabecera = async (req, res) => {
             { where: { id } }
         );
 
-        console.log(estado)
-
         if (estado === "cerrado") {
             const resultado = await ConsumoCabecera.update(
                 {
